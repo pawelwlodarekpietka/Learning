@@ -1255,12 +1255,31 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTY5OTQzODg5NywiZXhwIjoxNjk5NDQyNDk3LCJpc3MiOiJodHRwczovL2FwaS5vcGVuc2Vuc2VtYXAub3JnIiwic3ViIjoicGF3ZWx3bG9kYXJla3BpZXRrYUBnbWFpbC5jb20iLCJqdGkiOiI1Y2M1ZTdjZS1kMzcwLTQxZjktYjk1MC0wNjY4YzA3ZWI0NWEifQ.5GLQESjCs6MuxqgMsXffnh9wbdMEvIjq_k6BpyuEqx0"
+								"token": ""
 							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": "https://api.opensensemap.org/users/me"
+						"url": {
+							"raw": "https://api.opensensemap.org/users/me?email=Emma@email.com",
+							"protocol": "https",
+							"host": [
+								"api",
+								"opensensemap",
+								"org"
+							],
+							"path": [
+								"users",
+								"me"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "Emma@email.com",
+									"type": "text"
+								}
+							]
+						}
 					},
 					"response": [
 						{
