@@ -1015,7 +1015,7 @@
 					"response": []
 				},
 				{
-					"name": ".Delete measurements of a sensor",
+					"name": "Delete measurements of a sensor",
 					"id": "e7350c8e-5c84-41df-842b-98bd5f9136e1",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
