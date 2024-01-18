@@ -1162,6 +1162,32 @@
 			"item": [
 				{
 					"name": "Register new",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d39a0670-a1b1-43dd-978f-b758f4adac74",
+								"exec": [
+									"pm.test(\"User Registration Status Code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User Registration Success Message\", function () {\r",
+									"    pm.expect(pm.response.json().message).to.eql(\"Successfully registered new user\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User Registration Token is Present\", function () {\r",
+									"    pm.expect(pm.response.json().token).to.be.a(\"string\");\r",
+									"});\r",
+									"\r",
+									"// Zapisz token do zmiennej środowiskowej, aby go używać w późniejszych żądaniach\r",
+									"pm.environment.set(\"userToken\", pm.response.json().token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "5b7e96fb-0c27-4fc8-89fe-e8a655c949bc",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -1185,7 +1211,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://api.opensensemap.org/users/register?name=&email=&password=",
+							"raw": "https://api.opensensemap.org/users/register?name=Imie&email=imie@email.com&password=TwojeHaslo&language=en_US",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -1199,17 +1225,19 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "",
-									"type": "text"
+									"value": "Imie"
 								},
 								{
 									"key": "email",
-									"value": "",
-									"type": "text"
+									"value": "imie@email.com"
 								},
 								{
 									"key": "password",
-									"value": "",
+									"value": "TwojeHaslo"
+								},
+								{
+									"key": "language",
+									"value": "en_US",
 									"type": "text"
 								}
 							]
@@ -1546,6 +1574,28 @@
 				},
 				{
 					"name": "Delete user, all of its boxes and all of its boxes measurements",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0ed6460-c930-4c0b-b0ab-b107076b2bde",
+								"exec": [
+									"pm.test(\"Delete User Status Code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Delete User Success Message\", function () {\r",
+									"    pm.expect(pm.response.json().message).to.eql(\"User and all boxes of user marked for deletion. Bye Bye!\");\r",
+									"});\r",
+									"\r",
+									"// Wyczyść zmienną środowiskową z tokenem użytkownika po usunięciu\r",
+									"pm.environment.unset(\"userToken\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "c3c4e072-c989-42e8-8a22-d5a5ebf7882a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -1554,16 +1604,11 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{\n    \"name\": \"Postman123\",\n    \"email\": \"Postman123@gma"
+								"token": "{{userToken}}"
 							}
 						},
 						"method": "DELETE",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTY5OTM4Njc3NywiZXhwIjoxNjk5MzkwMzc3LCJpc3MiOiJodHRwczovL2FwaS5vcGVuc2Vuc2VtYXAub3JnIiwic3ViIjoianVyYW1hcmFlcmFAZ21haWwuY29tIiwianRpIjoiODBiNjA5NmItMWJiMy00MDkwLWFmYTMtMjBjNWJlNWYyNGIzIn0._fEtcQjq079btCm7tZqduG_F4ygYircLpSafklsHEFM",
-								"type": "text"
-							},
 							{
 								"key": "",
 								"value": "",
@@ -1580,7 +1625,25 @@
 								}
 							}
 						},
-						"url": "https://api.opensensemap.org/users/me"
+						"url": {
+							"raw": "https://api.opensensemap.org/users/me?password=TwojeHaslo",
+							"protocol": "https",
+							"host": [
+								"api",
+								"opensensemap",
+								"org"
+							],
+							"path": [
+								"users",
+								"me"
+							],
+							"query": [
+								{
+									"key": "password",
+									"value": "TwojeHaslo"
+								}
+							]
+						}
 					},
 					"response": []
 				},
